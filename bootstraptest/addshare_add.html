@@ -1,0 +1,265 @@
+		<style>
+			.fa-times {
+				font-size: 15px;
+			}
+			.panel {
+				height: 285px;
+				margin-bottom: 0;
+				margin-top: 10px;
+				width: 150px;
+			}
+			.panel-heading {
+				text-align: right;
+			}
+			/*加号*/
+			.icon-add-50 {
+				position: relative;
+				box-sizing: border-box;
+				width: 50px;
+				height: 50px;
+				border: 2px dashed #9a9ba3;
+				border-radius: 50%;
+			}
+			.icon-add-50:before {
+				content: '';
+				position: absolute;
+				width: 30px;
+				height: 2px;
+				left: 50%;
+				top: 50%;
+				margin-left: -15px;
+				margin-top: -1px;
+				background-color: #aaabb2;
+			}
+			.icon-add-50:after {
+				content: '';
+				position: absolute;
+				width: 2px;
+				height: 30px;
+				left: 50%;
+				top: 50%;
+				margin-left: -1px;
+				margin-top: -15px;
+				background-color: #aaabb2;
+			}
+			
+			.updatepanel {
+				border: 1px solid #ccc;
+				text-align: center;
+			}
+			.updatepanel .addbox {
+				vertical-align: middle;
+				height: 285px;
+				line-height: 285px;
+			}
+			
+			#image {
+				overflow: hidden;
+			}
+			.panel-body {
+				/*padding-top: 0px;
+				padding-bottom: 0px;*/
+			}
+			.form-group {
+			    margin-bottom: 10px;
+			}
+		</style>
+		<div id="add" style="z-index: 99999;position: fixed;left: 0;top: 0;width: 100%;height: 100%;background: #00000055;overflow-y: scroll;">
+			<div class="d-none d-lg-block container p-md-top m-xs-top ng-scope" style="width: 61%;">
+				<div class="row" style="margin: auto;margin-top: 30px;margin-bottom: 30px;">
+				<div class="col-md-8 col-md-offset-2">
+					<div style="background: #F9F9F9;border-bottom: 1px solid #e0e0e0;">
+							<header style="padding:20px;">
+								<h2 class="m-0-bottom" style="margin: 0;font-size: 20px;display: -webkit-inline-box;">添加内容</h2>
+								<span aria-hidden="true" class="pull-right" onclick="closeadd();" style="color: #37A000;font-size: 18px;cursor: pointer;">
+									<span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+								</span>
+							</header>
+						</div>
+					<div style="background: #FFF;">
+						<section class="p-lg-top" style="padding-bottom: 20px;">
+							<div style="padding:10px 30px;">
+		                        <div class="form-group">
+		                        	<label class="control-label" style="margin-bottom: 5px;">资源标题</label>
+		                            <div>
+		                                <input type="text" id="shareTitle" class="form-control" placeholder="标题" aria-describedby="basic-addon1">
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                        	<label class="control-label" style="margin-bottom: 5px;">资源描述</label>
+		                            <div>
+		                                <textarea placeholder="描述" id="shareDesc" style="height: 120px;width: 100%;border: 1px solid #ccc;border-radius: 3px;"></textarea>
+		                            </div>
+		                        </div>
+		                        <div class="form-group" id="file">
+					              	<label for="contentimg" class="control-label" style="margin-bottom: 0px;width: 100%;">图片选择:</label>
+					              	<!--<div class="col-sm-8 input-group">
+					                	<input id="lefile" type="file" style="display:none" accept="image/gif,image/jpeg,image/jpg,image/png">
+					                	<span class="input-group-addon" title="选择图片" onclick="$('input[id=lefile]').click();" style="cursor: pointer; background-color: #e7e7e7"><i class="glyphicon glyphicon-folder-open"></i></span>
+					                	<input id="imgurl" name="imgurl" class="form-control" type="text">
+					                	<span onclick="imgupload();" class="glyphicon glyphicon-cloud-upload form-control-feedback" title="上传图片" style="cursor: pointer;pointer-events: auto;"></span>
+					              	</div>-->
+					              	<div class="col-sm-4" id="updatebox" style="padding-left: 0;">
+										<label for="file">
+											<div class="panel updatepanel">
+												<div class="addbox"><span class="glyphicon glyphicon-plus" onclick="$('input[id=imgfile]').click();"></span></div>
+												<input type="file" id="imgfile" name="imgfile" style="display: none" />
+											</div>
+										</label>
+									</div>
+					            </div>
+					            <div class="form-group">
+		                        	<label class="control-label" style="margin-bottom: 5px;width: 100%;">资源链接</label>
+		                            <div>
+		                                <input type="text" class="form-control" id="shareUrl" placeholder="资源链接" aria-describedby="basic-addon1">
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                        	<label class="control-label" style="margin-bottom: 5px;">资源提取码</label>
+		                            <div style="width: 45%;">
+		                                <input type="text" class="form-control" id="sharePwd" placeholder="资源提取码" aria-describedby="basic-addon1">
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                        	<label class="control-label" style="margin-bottom: 5px;width: 100%;">选择分类</label>
+		                            <div style="width: 45%;display: inline-block;">
+		                                <select class="form-control" id="addparentsort">
+											<option value="1">python</option>
+											<option value="2">java</option>
+											<option value="3">视频</option>
+										</select>
+		                            </div>
+		                            <div style="width: 45%;display: inline-block;margin-left: 8%;">
+		                                <select class="form-control" id="addchildsort">
+											<option value="1">python</option>
+											<option value="2">java</option>
+											<option value="3">视频</option>
+										</select>
+		                            </div>
+		                        </div>
+					            <div class="form-group">
+		                        	<label class="control-label" style="margin-bottom: 5px;width: 100%;">标签</label>
+		                            <div style="width: 45%;display: inline-block;">
+		                                <input id="usertitle" type="text" class="form-control" placeholder="标签" aria-describedby="basic-addon1">
+		                            </div>
+		                            <span style="color:red;font-size: 12px;">如：js、css、html；用'、'分隔，最多3个标签</span>
+		                        </div>
+		                        <div style="display: flow-root;">
+		                        	<div style="cursor:pointer;float: right;display: inline-block;padding: 5px 10px;border-radius: 3px;background: #37A000;color: #fff;" onclick="submitshare();">提交</div>
+		                        </div>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>			
+		</div>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/jquery.cookie.js"></script>
+		<script src="js/util.js"></script>
+		<script>
+			var file;
+//			$("#lefile").change(function(){
+//				file = this.files[0]; 
+//				var lefile = $("#lefile").val();
+//				$("#imgurl").val(lefile);
+//			});
+//			imgupload = function(){
+//				var lefile = $("#lefile").val();
+//				if ($.trim(lefile) == "") { 
+//					alert("请选择要上传的文件"); 
+//					return;
+//				}
+//				var imgurl = imgajax();
+//	            $("#imgurl").val(imgurl);
+//			}
+			imgajax = function(){
+				var imgurl;
+				var formData = new FormData();
+	            formData.append("file",file);
+	            $.ajax({
+	                type:"POST",
+	                url:PATH+'images/pushImage',
+	                headers: {
+				           'token': $.cookie("token"),
+				          },
+	                data:formData,
+	                async: false,
+				    cache: false,
+				    contentType:false, 
+				    processData: false,
+				    dataType: "json",
+	                success:function(data){
+	                	if(data.subCode==="1200000"){
+	                		imgurl = data.bodyMessage.imageUrl;
+	                	}
+	                }
+	            })
+	            return imgurl;
+			}
+			var imgcount = 0;
+			$("#imgfile").change(function(){
+				if(imgcount>=3){
+					alert("最多添加3张图片");
+					return;
+				}
+				file = this.files[0]; 
+				var imgfile = $("#imgfile").val();
+				var imgurl = imgajax();
+				imgcount++;
+				add(imgurl);
+			});
+			function add(url){
+				var html = "<div class='col-sm-4'><div class='panel panel-info'><div class='panel-heading'><i class='glyphicon glyphicon-remove removeimg' style='cursor: pointer;'></i></div><div class='panel-body' style='text-align: center;'><div class='row'><div class='col-sm-12 col-md-12'><img class='updateimg img-responsive' src=\""+url+"\" style='width: inherit;height: 210px;'/><input type=\"hidden\" name=\"imgurl\" value=\""+url+"\" /></div></div></div></div></div>";
+				$("#updatebox").before(html);
+			}
+			$(".row").delegate(".removeimg","click",function(){
+			  	alert("删除图片");
+				$(this).parent().parent().parent().remove();
+			});
+			$(function(){
+				initsort();
+			})
+			initsort = function(){
+				if( $.cookie("token") ){ 
+					$.ajax({
+						url:PATH+'category/',
+						type:"GET",
+						dataType: "json",
+						contentType: "application/json",
+						success:function(data){
+							if(data.subCode==="1200000"){
+								result = data.bodyMessage;
+								addcreatesort(result);
+							}
+						},
+					});
+				}
+			}
+			var map = {};
+			addcreatesort = function(data){
+				var html="";
+				var childhtml="";
+				for (var i = 0; i < data.length; i++) {
+					map[data[i].categoryId]=data[i].categoryChildModelList;
+					html = html+"<option value=\""+data[i].categoryId+"\">"+data[i].categoryName+"</option>";
+					for (var j = 0; j < data[i].categoryChildModelList.length; j++){
+						childhtml = childhtml+"<option value=\""+data[i].categoryChildModelList[j].categoryChildId+"\">"+data[i].categoryChildModelList[j].categoryChildName+"</option>";
+					}
+				}
+				initsort = childhtml;
+				$("#addparentsort").html(html);
+				$("#addchildsort").html(childhtml);
+			}
+			$("#addparentsort").change(function(){
+				var key = $(this).val();
+				var childhtml="";
+				if(map.hasOwnProperty(key)){
+				    var list = [];
+				    list = map[key]
+				    for (var j = 0; j < list.length; j++) {
+						childhtml = childhtml+"<option value=\""+list[j].categoryChildId+"\">"+list[j].categoryChildName+"</option>";
+				    }
+				}
+				$("#addchildsort").html(childhtml);
+			})
+		</script>

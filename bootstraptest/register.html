@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>懒懒</title>
+		<link rel="shortcut icon" href="img/icon.png" type="img/x-icon" />
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+	<style>
+		body{
+			margin: 0;
+			padding: 0;
+			background: #fafafa;
+		}
+		.login-main{
+			margin: auto;
+			width: 100%;
+			margin-top: 80px;
+		}
+		.login-title{
+			width: 520px;
+			font-size: 24px;
+			text-align: center;
+			margin: auto;
+		}
+		#title{
+			margin-bottom: 20px;
+			font-family: serif;
+			font-weight: 600;
+		}
+		.login-contain{
+			width: 520px;
+			margin: auto;
+			background: #fff;
+			-webkit-box-shadow:0px 2px 3px #d9d9d9; 
+			box-shadow:0px 2px 3px #d9d9d9;
+		}
+		.login-contain #contain{
+			padding: 60px 90px;
+			font-size: 12px;
+		}
+		.bottom20{
+			margin-bottom: 15px;
+		}
+		label{
+			color: #999;
+			font-size: 12px;
+			margin-bottom: 8px;
+			line-height: 1;
+			width: 100%;
+			font-weight: 500;
+		}
+	</style>
+	<body>
+		<div style="font-size: 22px;position: absolute;top: 20px;left: 50px;font-family: serif;font-weight: 600;">懒懒</div>
+		<div style="position: absolute;top: 10px;right: 20px;font-size: 14px;">已有账号，请<div onclick="login();" style="display:inline-block;margin-left: 8px;padding:5px 10px;background: #fafafa;box-shadow:0px 1px 3px #d9d9d9;cursor: pointer;">登录</div></div>
+		<div class="login-main">
+			<div class="login-title">
+				<div id="title">注册</div>
+			</div>
+			<div class="login-contain">
+				<div id="contain">
+						<div class="username bottom20">
+							<label>输入用戶名</label>
+							<input class="form-control" name="username" placeholder="请输入用户名"/>
+						</div>
+						<div class="phone bottom20">
+							<label>输入手机号</label>
+							<input class="form-control" name="phone"/>
+						</div>
+						<div class="password bottom20">
+							<label>输入密码<span style="float: right;color: #6da0e3;">最少6位，包含数字和字母</span></label>
+							<input type="password" class="form-control" name="password"/>
+						</div>
+						<div class="confirmpwd bottom20" style="display: inline-block;margin-bottom: 0;">
+							<div style="width: 48%;float: left;">
+								<label>确认密码</label>
+								<input class="form-control" type="password"  name="confirmpwd"/>
+							</div>
+							<div style="width: 48%;float: right;">
+								<label>验证码</label>
+								<div class="input-group" style="width:100%;">
+						            <input type="text" class="form-control" name="code">
+						            <span class="input-group-addon" id="code" onclick="getcode();" style="width:60px;background: #6da0e3;color: #fff;cursor: pointer;">1234</span>
+						        </div>
+							</div>
+						</div>
+					<div style="cursor: pointer;font-size: 14px;background: #000;color:#fff;text-align: center;line-height: 2.8;border-radius: 5px;margin-top: 35px;" onclick="registerbtn();">注册</div>
+					<div style="cursor: pointer;font-size: 14px;background: #aaa;color:#fff;text-align: center;line-height: 2.8;border-radius: 5px;margin-top: 15px;">微信扫码注册</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/jquery.cookie.js"></script>
+		<script src="js/util.js"></script>
+		<script>
+			var code;
+			$(function(){
+				if( $.cookie("token") ){ 
+					alert("已有账号");
+				} 
+				getcode();
+			})
+			getcode = function(){
+				code=Math.floor(Math.random()*10000);
+				$("#code").text(code);
+			}
+			registerbtn = function(){
+				var incode = $('input[name="code"]').val();
+				var confirmpwd = $('input[name="confirmpwd"]').val();
+				var username = $('input[name="username"]').val();
+				var phone = $('input[name="phone"]').val();
+				var password = $('input[name="password"]').val();
+				if(StringEmpty(username)){
+					alert("用户名不能为空");
+					return;
+				}
+				if(!StringEmpty(phone)&&!validatePhone(phone)){
+					alert("手机号格式不对");
+					return;
+				}
+				if(password==""){
+					alert("密码不能为空");
+					return;
+				}
+				if(incode!==code+""){
+					console.log("验证码不正确");
+					alert("验证码不正确");
+					return;
+				}
+				if(confirmpwd!==password){
+					alert("确认密码不正确");
+					return;
+				}
+				if(!reg_password.test(password)){
+					alert("密码格式不正确");
+					return;
+				}
+				var json = {
+					userName:username,
+					password:password
+				};
+				$.ajax({
+					url:PATH+'userInfo/registerUN',
+					type:"POST",
+					dataType: "json",
+					contentType: "application/json",
+					data:JSON.stringify(json),
+					success:function(data){
+						console.log(data);
+						if(data.subCode==="1200000"){
+							var token=data.bodyMessage.token;
+							var date = new Date(); 
+						    date.setTime(date.getTime() + VALIDTIME);
+						    $.cookie("username", username,{expires: date });
+							$.cookie("token", token, {path: WEBPATH,expires: date });
+			 				window.location.href='index.html';
+						}
+						if(data.subCode==="1200011"){
+			 				alert(data.message);
+						}
+					},
+				});
+			}
+			login = function(){
+				window.location.href='login.html';
+			}
+		</script>
+	</body>
+</html>

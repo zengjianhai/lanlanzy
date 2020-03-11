@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=0" name="viewport" />
+	<meta name="referrer" content="never">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-control" content="no-cache">
+	<meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="javascript,vueJS,Jquery,AngularJS,HTML5,CSS3">
+		<title>懒懒</title>
+		<link rel="shortcut icon" href="img/icon.png" type="img/x-icon" />
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<style>
+			#nav_content .navbar-container{
+				box-shadow: 0px 2px 3px #e9e9e9;
+    			height: 70px;
+			}
+			#nav_content .navbar-container .container{
+				width: 1000px;
+				min-height: 500px;
+			}
+			#nav_content .navbar-container a{
+    			height: 70px;
+    			line-height: 36px;
+    			color: #000000;
+			}
+			#nav_content .navbar-container a:hover{
+    			color: #6da0e3;
+    			background: #fff;
+			}
+			#nav_content .navbar-container a:visited{
+    			background: #fff;
+			}
+			#nav_content .navbar-container a:focus{
+    			background: #fff;
+			}
+			.line{
+				margin-bottom: 5px;
+			    width: 30%;
+			    background: #cecece;
+			    height: 1px;
+			    display: inline-block;
+			    margin-right: 5px;
+			    margin-left: 5px;
+			}
+			.btn-circle{
+				cursor: pointer;
+				border-radius: 50%;
+				padding: 6px 9px;
+			    box-shadow: 0px 1px 6px 2px #e5e5e5;
+			    border: 0;
+			    background: #fff;
+			    color: #37A000;
+			}
+			.btn-circle:hover{
+			    box-shadow: 0px 2px 6px 2px #d5d5d5;
+			    color: #379000;
+			}
+			.add_title{
+				display: inline-block;
+				line-height: 30px;
+				font-size: 18px;
+				cursor: pointer;
+			}
+			.add_title:hover{
+				color: #6da0e3;
+			}
+			.add_li:hover{
+				background: #F9F9F9;
+			}
+			.add_li{
+				padding: 0 30px;
+			}
+		</style>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div id="nav_content"></div>
+		<div id="main_content" style="min-height: 650px;">
+			<div class="container-fluid tab-content" style="padding: 45px 0;">
+					<div id="page1" style="width:100%"></div> 
+					<script> 
+						$("#page1").load("addshare_main.html");
+					</script>
+			</div>
+		</div>
+		<div id="footer_content">
+			<footer class="footer-center" style="margin-top:2rem;width: 100%;height: 1rem;border-top: 1px solid #2370b933;">
+			    <div class="container" style="padding:50px;text-align: center;font-size: 0.3rem;">
+			    	<div><img src="img/wechatlink.PNG" style="width: 120px;margin-bottom: 15px;"></div>
+			    	<div>QQ群：129356161</div>
+			    </div>
+			</footer>
+		</div>
+		<script src="js/jquery.cookie.js"></script>
+		<script src="js/util.js"></script>
+		<script> 
+			var id;
+			$(function(){
+				if( !$.cookie("token") ){
+					window.location.href='index.html';
+				}
+				$("#nav_content").load("nav.html");
+			})
+//			addcontent = function(){
+//				$("#page2").load("addshare_add.html");
+//			};
+//			closeadd = function(){
+//				$("#page2").children().remove();
+//			};
+//			submitshare = function(){
+//				var shareTitle = $("#page2 #shareTitle").val();
+//				var shareDesc = $("#page2 #shareDesc").val();
+//				var shareUrl = $("#page2 #shareUrl").val();
+//				var sharePwd = $("#page2 #sharePwd").val();
+//				var sharesort = parseInt($("#page2 #addchildsort").val());
+//				var usertitle = $("#page2 #usertitle").val();
+//				var imgs=[];
+//				var imgurls = $("#page2 input[name='imgurl']");
+//			    for(var x=0; x<imgurls.length;x++){
+//			    	imgs[x]  = {imageUrl:$(imgurls[x]).val()};
+//			    }
+//				var categoryUserTitles = [usertitle];
+//				if(usertitle.indexOf("、") >= 0){
+//					categoryUserTitles = usertitle.split("、");
+//				}
+//				var json = {
+//					shareBrief:shareDesc,
+//					shareCategoryChildId:sharesort,
+//					sharePwd:sharePwd,
+//					shareTitle:shareTitle,
+//					shareUrl:shareUrl,
+//					images:imgs,
+//					categoryUserTitles: categoryUserTitles,
+//					shareSource: "string",
+//					shareSourceUrl: "string",
+//				};
+//				console.log(json);
+//				if( $.cookie("token") ){ 
+//					console.log(111);
+//					$.ajax({
+//						url:PATH+'share/',
+//						headers: {
+//				           'token': $.cookie("token"),
+//				          },
+//						type:"POST",
+//						dataType: "json",
+//						contentType: "application/json",
+//						data:JSON.stringify(json),
+//						success:function(data){
+//							console.log(data);
+//							if(data.subCode==="1200000"){
+//								closeadd();
+//								$("#page2 #shareTitle").val("");
+//								$("#page2 #shareDesc").val("");
+//								$("#page2 #shareUrl").val("");
+//								$("#page2 #sharePwd").val("");
+//								$("#page2 #sharesort").val("");
+//								window.location.reload();
+//							}
+//						},
+//					});
+//				} else{
+//					alert("请登录");
+//				}
+//			}
+		</script>
+	</body>
+</html>

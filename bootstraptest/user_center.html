@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=0" name="viewport" />
+	<meta name="referrer" content="never">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-control" content="no-cache">
+	<meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="javascript,vueJS,Jquery,AngularJS,HTML5,CSS3">
+		<title>懒懒</title>
+		<link rel="shortcut icon" href="img/icon.png" type="img/x-icon" />
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<style>
+			#nav_content .navbar-container{
+				box-shadow: 0px 2px 3px #e9e9e9;
+    			height: 70px;
+			}
+			#nav_content .navbar-container .container{
+				width: 1000px;
+				min-height: 500px;
+			}
+			#nav_content .navbar-container a{
+    			height: 70px;
+    			line-height: 36px;
+    			color: #000000;
+			}
+			#nav_content .navbar-container a:hover{
+    			color: #6da0e3;
+    			background: #fff;
+			}
+			#nav_content .navbar-container a:visited{
+    			background: #fff;
+			}
+			#nav_content .navbar-container a:focus{
+    			background: #fff;
+			}
+			.line{
+				margin-bottom: 5px;
+			    width: 30%;
+			    background: #cecece;
+			    height: 1px;
+			    display: inline-block;
+			    margin-right: 5px;
+			    margin-left: 5px;
+			}
+			.btn-circle{
+				cursor: pointer;
+				border-radius: 50%;
+				padding: 6px 9px;
+			    box-shadow: 0px 1px 6px 2px #e5e5e5;
+			    border: 0;
+			    background: #fff;
+			    color: #37A000;
+			}
+			.btn-circle:hover{
+			    box-shadow: 0px 2px 6px 2px #d5d5d5;
+			    color: #379000;
+			}
+			.user{
+				text-align: center;
+				padding: 5px;
+				cursor: pointer;
+			}
+			.user:hover{
+				background: #f0f1f5;
+				border-left: 5px solid #6da0e3;
+			}
+		</style>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div id="nav_content"></div>
+		<div id="main_content" style="min-height: 650px;">
+			<div class="container tab-content" style="padding: 45px 0;">
+				<div style="width: 70%;margin: auto;">
+					<div style="width: 30%;float: left;display: inline-block;">
+						<div style="padding-left:20px;margin-right: 20px;font-size: 16px;font-weight: 600;">个人中心</div>
+						<div style="margin-right: 20px;padding: 20px;padding-top:5px;color: #666;">
+							<div class="user" onclick="method(1);">基本资料</div>
+							<div class="user" onclick="method(2);">修改密码</div>
+						</div>
+					</div>
+					<div style="width: 70%;display: inline-block;">
+						<div style="box-shadow: 0px 1px 5px #e0e0e0;padding: 20px;color: #666;height: 500px;">
+							<div id="usercenter" style="padding: 50px 20px;">
+								<div style="font-size: 16px;margin-bottom: 70px;padding-left: 10px;border-left: 5px solid #6da0e3;">基本资料</div>
+								<div style="text-align: center;">
+									<div style="display: inline-flex;overflow: hidden;align-items: center;justify-content: center;margin-top:-20px;width: 80px;height: 80px;overflow: hidden;background: #666;border-radius: 50%;">
+										<img id="userimg" style="height: 120%;" src="img/userimg1.png"/>
+									</div>
+									<div style="margin: auto;font-size: 18px;" id="username">yin</div>
+								</div>
+								<div style="text-align: center;margin-top: 30px;margin-bottom: 30px;">
+									<label style="font-weight: 500;">手机号：</label><div style="display: inline-block;" id="phone">15079594318</div>
+								</div>
+							</div>
+							<div id="updatepassword" style="padding: 50px 20px;display: none;">
+								<div style="font-size: 16px;margin-bottom: 50px;padding-left: 10px;border-left: 5px solid #6da0e3;">修改密码</div>
+								<div style="text-align: center;">
+									<label style="font-weight: 500;">原始密码</label><input id="oldpwd" type="text" class="form-control" style="margin-left:15px;display:inline-block;width: 200px;"/>
+								</div>
+								<div style="text-align: center;margin-top: 30px;">
+									<label style="font-weight: 500;">新的密码</label><input id="newpwd" type="text" class="form-control" style="margin-left:15px;display:inline-block;width: 200px;"/>
+								</div>
+								<div style="margin-top: 60px;text-align: center;">
+									<button type="button" class="btn btn-success" style="width:150px;background: #6da0e3;border-color:#6da0e3;" onclick="updatepwd();">保存</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer_content">
+			<footer class="footer-center" style="margin-top:2rem;width: 100%;height: 1rem;border-top: 1px solid #2370b933;">
+			    <div class="container" style="padding:50px;text-align: center;font-size: 0.3rem;">
+			    	<div><img src="img/wechatlink.PNG" style="width: 120px;margin-bottom: 15px;"></div>
+			    	<div>QQ群：129356161</div>
+			    </div>
+			</footer>
+		</div>
+		<script src="js/jquery.cookie.js"></script>
+		<script src="js/util.js"></script>
+		<script> 
+			$(function(){
+				if( !$.cookie("token") ){
+					window.location.href='index.html';
+				}
+				$("#nav_content").load("nav.html");
+				getuserdetail();
+			})
+			method = function(i){
+				if(i==1){
+					$("#usercenter").css("display","unset");
+					$("#updatepassword").css("display","none");
+				}
+				if(i==2){
+					$("#usercenter").css("display","none");
+					$("#updatepassword").css("display","unset");
+				}
+			}
+			getuserdetail = function(){
+				if( $.cookie("token") ){ 
+					$.ajax({
+						url:PATH+'userInfo/',
+						headers: {
+				           'token': $.cookie("token"),
+				          },
+						type:"GET",
+						dataType: "json",
+						async: false,
+						contentType: "application/json",
+						success:function(data){
+							console.log(data);
+							if(data.subCode==="1200000"){
+								$("#userimg").attr("src",data.bodyMessage.imageUrl);
+								if(StringEmpty(data.bodyMessage.imageUrl)){
+									$("#userimg").attr("src","img/userimg1.png");	
+								}
+								
+								$("#username").text(data.bodyMessage.nickname);
+								$("#phone").text(data.bodyMessage.phone);
+								if(StringEmpty(data.bodyMessage.phone)){
+									$("#phone").text("请去添加手机号");
+								}
+							}
+						},
+					});
+				}
+			}
+			updatepwd = function(){
+				var oldpwd = $("#oldpwd").val(); 
+				var newpwd = $("#newpwd").val();
+				if(StringEmpty(oldpwd)){
+					alert("原始密码为空");
+					return;
+				}
+				if(StringEmpty(newpwd)){
+					alert("请输入新密码");
+					return;
+				}
+				var json = {
+					newPassword:newpwd,
+					oldPassword:oldpwd,
+				}
+				if( $.cookie("token") ){ 
+					$.ajax({
+						url:PATH+'userInfo/pwd',
+						headers: {
+				           'token': $.cookie("token"),
+				          },
+						type:"PUT",
+						dataType: "json",
+						data:JSON.stringify(json),
+						async: false,
+						contentType: "application/json",
+						success:function(data){
+							console.log(data);
+							if(data.subCode==="1200000"){
+								$("#oldpwd").val(""); 
+								$("#newpwd").val("");
+								alert("修改成功");
+							}
+						},
+					});
+				}
+			}
+		</script>
+	</body>
+</html>

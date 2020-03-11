@@ -1,0 +1,189 @@
+<div class="d-none d-lg-block container p-md-top m-xs-top ng-scope" style="width: 61%;">
+			<div class="row" style="margin-top: 20px;">
+				<div class="col-md-9 col-md-offset-2">
+					<div style="box-shadow: 0px 1px 5px #e0e0e0;background: #FFF;">
+						<div style="background: #F9F9F9;border-bottom: 1px solid #eee;">
+							<header style="padding:30px;">
+								<h2 class="m-0-bottom" style="margin: 0;font-size: 24px;display: -webkit-inline-box;">内容</h2>
+								<span aria-hidden="true" class="btn-circle pull-right" onclick="addcontent();">
+									<span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
+								</span>
+							</header>
+						</div>
+						<section class="p-lg-top" style="">
+							<div style="">
+								<ul style="list-style: none;margin: 0;padding: 0;" id="usershares">
+									<div style="padding: 30px;">没有数据，请去添加</div>
+									<!--<li onclick="detail(18);" class="add_li">
+										<div id="add_li_div" style="position:relative;">
+											<div style="padding: 10px 10px 0px 10px;height: 45px;">
+												<div style="display: inline-block;line-height: 30px;font-size: 18px;">
+													springboot前后端分离很牛逼
+												</div>
+											</div>
+											<div style="padding: 0px 10px 0px 10px;">
+												<div style="display: -webkit-box;line-height: 1.5;overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 3;-webkit-box-orient: vertical;">
+													springboot前后端分离很牛逼，这个东西很牛逼啊，值得过来看一下，springboot前后端分离很牛逼，这个东西很牛逼啊，值得过来看一下，springboot前后端分离很牛逼，这个东西很牛逼啊，值得过来看一下，springboot前后端分离很牛逼，这个东西很牛逼啊，值得过来看一下
+												</div>
+											</div>
+											<div style="padding: 0px 10px 0px 10px;">
+												<div style="display: inline-block;float: right;margin-right: 10px;padding: 5px 15px;border-radius: 15px;color: #fff;background: #6190e8;font-size: 13px;">
+													Java
+												</div>
+												<div style="display: inline-block;font-size: 12px;line-height: 3;">
+													5人浏览
+												</div>
+												<div style="display: inline-block;float: right;line-height: 3;font-size: 12px;">
+													2019-08-31 2:50
+												</div>
+											</div>
+											<div class="li_hover" style="display:none;position:absolute;right:10px;top:10px;line-height: 1.5;">
+												<div class="update" style="color:#6190e8;display: inline-block;">编辑</div>
+												<div class="delete" style="color:red;margin-left:10px;display: inline-block;">删除</div>
+											</div>
+										</div>
+									</li>
+									<hr style="margin-top: 0;margin-bottom: 0;border-top: 1px solid #F9F9F9;">
+									<li onclick="detail(18);" class="add_li">
+										<div style="position:relative;">
+											<div style="padding: 10px 10px 0px 10px;height: 45px;">
+												<div style="display: inline-block;line-height: 30px;font-size: 18px;">
+													springboot前后端分离很牛逼
+												</div>
+											</div>
+											<div style="padding: 0px 10px 0px 10px;">
+												<div style="display: -webkit-box;line-height: 1.5;overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 3;-webkit-box-orient: vertical;">
+													springboot前后端分离很牛逼，这个东西很牛逼啊，值得过来看一下，springboot前后端分离很牛逼，这个东西很牛逼啊，值得过来看一下，springboot前后端分离很牛逼，这个东西很牛逼啊，值得过来看一下，springboot前后端分离很牛逼，这个东西很牛逼啊，值得过来看一下
+												</div>
+											</div>
+											<div style="padding: 0px 10px 0px 10px;">
+												<div style="display: inline-block;float: right;margin-right: 10px;padding: 5px 15px;border-radius: 15px;color: #fff;background: #6190e8;font-size: 13px;">
+													Java
+												</div>
+												<div style="display: inline-block;font-size: 12px;line-height: 3;">
+													5人浏览
+												</div>
+												<div style="display: inline-block;float: right;line-height: 3;font-size: 12px;">
+													2019-08-31 2:50
+												</div>
+											</div>
+											<div class="li_hover" style="display:none;position:absolute;right:10px;top:10px;line-height: 1.5;">
+												<div class="update" style="color:#6190e8;display: inline-block;">编辑</div>
+												<div class="delete" style="color:red;margin-left:10px;display: inline-block;">删除</div>
+											</div>
+										</div>
+									</li>-->
+								</ul>
+							</div>
+							<div class="alert alert-warning" role="alert" style="margin: 0px 30px 0px 30px;">
+							  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							  <span class="sr-only">错误:</span>
+							  	请去添加数据
+							</div>
+						</section>
+					</div>
+				</div>
+				<!--<div class="col-md-4">
+					<div style="color: #37A000;height: 35px;line-height:35px;box-shadow: 0px 1px 6px 1px #c8c8c8;background: #FFF;text-align: center;width: 80%;">
+						设置
+					</div>
+					<div style="margin-top: 15px;">天气好</div>
+				</div>-->
+			</div>
+		</div>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/jquery.cookie.js"></script>
+		<script src="js/util.js"></script>
+		<script>
+			$(function(){
+				var data = inituser();
+				if(data.lenght==0){
+					return;
+				}
+				createhtml(data);
+			})
+			inituser = function(){
+				var result = [];
+				if( $.cookie("token") ){ 
+					$.ajax({
+						url:PATH+'userInfo/shares',
+						headers: {
+				           'token': $.cookie("token"),
+				          },
+						type:"GET",
+						dataType: "json",
+						async: false,
+						contentType: "application/json",
+						success:function(data){
+							console.log(data);
+							if(data.subCode==="1200000"){
+								result = data.bodyMessage.pageDatas;
+							}
+						},
+					});
+				}
+				return result;
+			}
+			createhtml = function(data){
+				console.log("创建");
+				var html="";
+				var html_hr = "";
+				var labelhtml = "";
+				for (var i = 0; i < data.length; i++) {
+					labelhtml = "";
+					for (var j = 0; j < data[i].categoryUserList.length; j++) {
+						labelhtml = "<div style=\"display: inline-block;margin-right: 10px;color: #6190e8;font-size: 13px;\">"+data[i].categoryUserList[j].categoryUserTitle+"</div>";
+					}
+					html_hr = "<hr style=\"margin-top: 0;margin-bottom: 0;    border-top: 1px solid #F9F9F9;\">";
+					if(i+1>=data.length){
+						html_hr = "";
+					}
+					html = html + "<li class=\"add_li\"><div style=\"position:relative;\"><div style=\"padding: 15px 10px 5px 10px;\"><div class=\"add_title\" onclick=\"detail("+data[i].shareId+");\">"+data[i].shareTitle+"</div>"+
+					"</div><div style=\"padding: 0px 10px 10px 10px;\"><div style=\"color:#666;display: -webkit-box;line-height: 1.5;overflow: hidden;text-overflow: ellipsis;-webkit-line-clamp: 3;-webkit-box-orient: vertical;\">"+data[i].shareBrief+"</div>"+
+					"</div><div style=\"padding: 0px 10px 10px 10px;\"><div style=\"display: inline-block;margin-right: 10px;color: #fff;font-size: 13px;border-radius: 50%;padding: 3px 10px;background: #6190e8;\">"+data[i].categoryChildName+"</div>"+labelhtml+"<div style=\"color:#666;display: inline-block;font-size: 12px;line-height: 3;\">"+data[i].shareView+"人浏览</div><div style=\"display: inline-block;float:right;line-height: 3;font-size: 12px;color:#666;\">"+gettimedate(data[i].shareUpdateTime)+"</div></div>"+
+					"<div class=\"li_hover\" style=\"display:none;position:absolute;right:10px;top:15px;line-height: 1.5;\"><div class=\"update\" style=\"color:#6190e8;display: inline-block;cursor: pointer;\">编辑</div><div class=\"delete\" style=\"cursor: pointer;color:red;margin-left:10px;display: inline-block;\" onclick=\"deleteshare("+data[i].shareId+");\">删除</div></div></div></li>"+html_hr;
+				}
+				if(StringEmpty(html)){
+					return;
+				}
+				$("#usershares").html(html);
+				$(".alert-warning").css("display","none");
+				addlihover();
+			}
+			detail = function(id){
+				window.location.href="detail.html?shareId="+id;
+			}
+			addlihover = function(){
+				$('.add_li').hover(function(){
+					$(this).find(".li_hover").css("display","unset");
+				},function(){
+					$(this).find(".li_hover").css("display","none");
+				});
+			}
+			
+			deleteshare = function(i){
+				if( $.cookie("token") ){ 
+					var flag = false;
+					$.ajax({
+						url:PATH+'share/'+i,
+						headers: {
+				           'token': $.cookie("token"),
+				          },
+						type:"DELETE",
+						dataType: "json",
+						async: false,
+						contentType: "application/json",
+						success:function(data){
+							if(data.subCode==="1200000"){
+								flag = true;
+							}
+						},
+					});
+					if(flag){
+						$('.add_li').click(function(){
+							$(this).remove();
+						});
+					}
+				}
+			}
+		</script>

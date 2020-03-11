@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=0" name="viewport" />
+	<meta name="referrer" content="never">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-control" content="no-cache">
+	<meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="javascript,vueJS,Jquery,AngularJS,HTML5,CSS3">
+		<title>懒懒</title>
+		<link rel="shortcut icon" href="img/icon.png" type="img/x-icon" />
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<style>
+			.line{
+				margin-bottom: 5px;
+			    width: 30%;
+			    background: #cecece;
+			    height: 1px;
+			    display: inline-block;
+			    margin-right: 5px;
+			    margin-left: 5px;
+			}
+			.btn-circle{
+				cursor: pointer;
+				border-radius: 50%;
+				padding: 6px 9px;
+			    box-shadow: 0px 1px 6px 2px #e5e5e5;
+			    border: 0;
+			    background: #fff;
+			    color: #37A000;
+			}
+			.btn-circle:hover{
+			    box-shadow: 0px 2px 6px 2px #d5d5d5;
+			    color: #379000;
+			}
+			.childsort_left{
+				display: inline-block;
+				cursor: pointer;
+				font-size: 13px;
+				color: #666;
+				padding: 5px 10px;
+    			border-radius: 2px;
+			}
+			.childsort_left:hover{
+				color: #6190e8;
+			}
+			.parentsort_left{
+				display: inline-block;
+				font-size: 13px;
+				cursor: pointer;
+				color: #666;
+				padding: 5px 10px;
+    			border-radius: 2px;
+			}
+			.parentsort_left:hover{
+				color: #6190e8;
+			}
+			._width{
+				width: 70%;
+			}
+			#card{
+				box-shadow: 0px 1px 5px #e0e0e0;
+				border-radius: 5px;
+				margin-top: 20px;
+				padding: 0 50px;
+			}
+			#card_content{
+				padding-top: 30px;
+				display: flow-root;
+				padding-bottom: 20px;	
+			}
+			#card_main{
+				width: 80%;
+				float: left;
+				padding-left: 15px;
+			}
+			@media screen and (max-device-width:641px) and (max-device-height:1080px){ 
+				html,body{
+					overflow-x: hidden;
+				}
+				#main_content ._width {
+				    width: 90%;
+				}
+				#main_content ._width2 {
+				    width: 100%;
+				}
+				#card{
+					padding: 0 5px;
+				}
+				#card_img{
+					display: none;
+				}
+				#card_content{
+					padding-top: 10px;
+					padding-bottom: 10px;	
+				}
+				#card_main{
+					width: 100%;
+					padding-left: 5px;
+				}
+			}
+		</style>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div id="nav_content"></div>
+		<div id="main_content" style="min-height: 650px;">
+			<div class="container tab-content" style="padding: 45px 0;">
+				<div style="margin: auto;" class="_width">
+					<div class="input-group _width _width2" style="margin: auto;box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13333333333333333);">
+						<span style="border: 0;background: #fff;" class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+		                <input id="key" onkeydown="entersearch();" style="font-size: 16px;height: 45px;border: 0;-webkit-box-shadow: inset 0 1px 1px #fff;box-shadow: inset 0 1px 1px #fff;" type="text" class="form-control" style="height:45px;"/>
+		                <span class="input-group-addon" id="code" onclick="search();" style="background: #6da0e3;color: #fff;cursor: pointer;border-color: #6da0e3;font-size: 16px;padding: 0 30px;">搜索</span>
+		            </div>
+		            <div class="_width _width2" style="margin: auto;font-size: 12px;color: #666;line-height: 3;">热搜关键词：<a style="color: #666;">java</a></div>
+		            <hr style="margin: 0;margin-top: 30px;" />
+		            <div style="margin-bottom: 5px;font-size: 13px;margin-top: 5px;">
+		            	<div style="display: inline-block;color: #666;font-size: 13px;font-weight: 600;margin-right: 5px;">方向：</div>
+		            	<div onclick="perentsortbtn(0);" class="parentsort_left parentsort_left_0" style="display: inline-block;color: #6da0e3;font-size: 13px;font-weight: 600;background:#6da0e333;">全部</div>
+		            	<div id="parentsort" style="display: inline-block;">
+		            		<div class="parentsort_left">学习</div>
+		            	</div>
+		            </div>
+		            <hr style="margin: 0;" />
+		            <div style="font-size: 13px;margin-top: 5px;">
+		            	<div style="display: inline-block;color: #666;font-size: 13px;font-weight: 600;margin-right: 5px;">分类：</div>
+		            	<div onclick="childsortbtn(0);" class="childsort_left childsort_left_0" style="display: inline-block;color: #6da0e3;font-size: 13px;font-weight: 600;background:#6da0e333;">不限</div>
+		            	<div id="childsort" style="display: inline-block;">
+		            		<div class="childsort_left">java</div>
+			            	<div class="childsort_left">html</div>
+			            	<div class="childsort_left">python</div>
+			            	<div class="childsort_left">java</div>
+		            	</div>
+		            </div>
+		            <hr style="margin: 0;margin-top: 5px;" />
+		            <div style="font-size: 18px;margin-top: 30px;border-left: 5px solid;padding-left: 5px;color: #6190e8;">全部</div>
+		            <div id="content">
+		            <div id="card">
+		            	<ul style="list-style: none;margin: 0;padding: 0;" id="searchshare">
+							<li>
+								<div id="card_content">
+									<div id="card_img" style="width: 20%;float: left;height: 120px;">
+										<img src="img/2.jpg" style="width: 100%;height:100%;border-radius: 5px;"/>
+									</div>
+									<div id="card_main">
+										<div style="font-size: 18px;line-height: 2;">java spring框架学习</div>
+										<div style="line-height: 1.5;color: #666;">spring框架是一款开源框架，他方便了开发人员的的开发</div>
+										<div style="margin-top: 10px;">
+											<div style="display: inline-block;margin-right: 10px;border-radius: 15px;color: #6190e8;font-size: 13px;">java</div>
+											<div style="display: inline-block;font-size: 12px;">5人浏览</div>
+										</div>
+									</div>
+								</div>
+							</li>
+							<hr style="margin: 0;"/>
+						</ul>
+		            </div>
+		            </div>
+				</div>
+			</div>
+		</div>
+		<div id="footer_content">
+			<footer class="footer-center" style="margin-top:2rem;width: 100%;height: 1rem;border-top: 1px solid rgba(35, 115, 191, 0.2);">
+			    <div class="container" style="padding:50px;text-align: center;font-size: 14px;">
+			    	<div><img src="img/wechatlink.PNG" style="width: 120px;margin-bottom: 15px;"></div>
+			    	<div>QQ群：129356161</div>
+			    </div>
+			</footer>
+		</div>
+		<script src="js/jquery.cookie.js"></script>
+		<script src="js/util.js"></script>
+		<script> 
+			function entersearch(){  
+			    var event = window.event || arguments.callee.caller.arguments[0];  
+			    if (event.keyCode == 13)  
+			       {  
+			          search();  
+			       }  
+			}  
+			$(function(){
+				$("#nav_content").load("nav.html");
+				sort();
+				searchajax({
+					keyWord:"",
+					pageSize:6
+				});
+			})
+			getSharedata = function(params){
+				var resultList=[];
+				$.ajax({
+					url:PATH+'share/shares?'+params,
+					type:"GET",
+					dataType: "json",
+					contentType: "application/json",
+					async: false,
+					success:function(data){
+						if(data.subCode==="1200000"){
+							resultList = data.bodyMessage.pageDatas;
+							createhtml(resultList);
+						}
+					},
+				});
+			}
+			search = function(){
+				var key = $("#key").val();
+				var json = {
+					keyWord:key,
+				}
+				searchajax(json);
+			}
+			searchajax = function(json){
+				var result = [];
+				$.ajax({
+						url:PATH+'share/search',
+						type:"POST",
+						dataType: "json",
+						contentType: "application/json",
+						data:JSON.stringify(json),
+						success:function(data){
+							console.log(data);
+							if(data.subCode==="1200000"){
+								result = data.bodyMessage;
+								createhtml(result);
+							}
+						},
+					});
+			}
+			createhtml = function(data){
+				var html="";
+				var shareImageUrl = "";
+				for (var i = 0; i < data.length; i++) {
+					shareImageUrl = data[i].shareImageUrl;
+					if(StringEmpty(data[i].shareImageUrl)){
+						shareImageUrl = "http://image.luokangyuan.com/2018/10/16/10/10/10cinque-terre-italy-rocks-sea-60015.jpeg";
+					}
+					html = html + "<li><div id=\"card_content\"><div id=\"card_img\" style=\"width: 20%;float: left;height: 120px;\"><img src=\""+shareImageUrl+"\" onclick=\"detail("+data[i].shareId+");\" style=\"cursor: pointer;width: 100%;height:100%;border-radius: 5px;\"/></div><div id=\"card_main\">"+
+					"<div style=\"cursor: pointer;font-size: 18px;line-height: 2;\" onclick=\"detail("+data[i].shareId+");\">"+data[i].shareTitle+"</div><div style=\"line-height: 1.5;color: #666;\">"+data[i].shareBrief+"</div><div style=\"margin-top: 10px;\"><div style=\"display: inline-block;margin-right: 10px;border-radius: 15px;color: #6190e8;font-size: 13px;\">"+data[i].categoryChildName+"</div><div style=\"display: inline-block;font-size: 12px;\">"+data[i].shareView+"人浏览</div></div></div></div></li><hr style=\"margin: 0;\"/>";
+				}
+				if(StringEmpty(html)){
+					$("#content").html("<div style='text-align: center;margin: 30px;'><span class=\"glyphicon glyphicon-search\"></span> 未找到相关内容</div>");
+					return;
+				}
+				$("#content").html("<div id=\"card\"><ul style=\"list-style: none;margin: 0;padding: 0;\" id=\"searchshare\">"+html+"</ul><div>");
+			}
+			detail = function(id){
+				window.location.href="detail.html?shareId="+id;
+			}
+			sort = function(){
+				$.ajax({
+						url:PATH+'category/',
+						type:"GET",
+						dataType: "json",
+						contentType: "application/json",
+						success:function(data){
+							console.log(data);
+							if(data.subCode==="1200000"){
+								result = data.bodyMessage;
+								createsorthtml(result);
+							}
+						},
+					});
+			}
+			var map = {};
+			var initsort;
+			createsorthtml = function(data){
+				var html="";
+				var childhtml="";
+				for (var i = 0; i < data.length; i++) {
+					map[data[i].categoryId]=data[i].categoryChildModelList;
+					html = html+"<div class=\"parentsort_left parentsort_left_"+data[i].categoryId+"\" onclick=\"perentsortbtn("+data[i].categoryId+");\">"+data[i].categoryName+"</div>";
+					for (var j = 0; j < data[i].categoryChildModelList.length; j++){
+						childhtml = childhtml+"<div class=\"childsort_left childsort_left_"+data[i].categoryChildModelList[j].categoryChildId+"\" onclick=\"childsortbtn("+data[i].categoryChildModelList[j].categoryChildId+");\">"+data[i].categoryChildModelList[j].categoryChildName+"</div>";
+					}
+				}
+				initsort = childhtml;
+				$("#parentsort").html(html);
+				$("#childsort").html(childhtml);
+			}
+			perentsortcss = function(i){
+				$(".parentsort_left").css("color","#666");
+//				$(".parentsort_left").css("font-size","13px");
+				$(".parentsort_left").css("background","#fff");
+				$(".parentsort_left").css("font-weight","500");
+				$(".parentsort_left_"+i).css("color","#6da0e3");
+//				$(".parentsort_left_"+i).css("font-size","14px");
+				$(".parentsort_left_"+i).css("background","#6da0e333");
+				$(".parentsort_left_"+i).css("font-weight","600");
+			}
+			perentsortbtn = function(i){
+				perentsortcss(i);
+				if(i==0){
+					$("#childsort").html(initsort);
+					return;
+				}
+				var childhtml="";
+				if(map.hasOwnProperty(i)){
+				    var list = [];
+				    list = map[i]
+				    for (var j = 0; j < list.length; j++) {
+						childhtml = childhtml+"<div class=\"childsort_left childsort_left_"+list[j].categoryChildId+"\" onclick=\"childsortbtn("+list[j].categoryChildId+");\">"+list[j].categoryChildName+"</div>";
+				    }
+				}
+				$("#childsort").html(childhtml);
+			}
+			childsortcss = function(i){
+				$(".childsort_left").css("color","#666");
+//				$(".childsort_left").css("font-size","13px");
+				$(".childsort_left").css("background","#fff");
+				$(".childsort_left").css("font-weight","500");
+				$(".childsort_left_"+i).css("color","#6da0e3");
+//				$(".childsort_left_"+i).css("font-size","14px");
+				$(".childsort_left_"+i).css("background","#6da0e333");
+				$(".childsort_left_"+i).css("font-weight","600");
+			}
+			childsortbtn = function(i){
+				childsortcss(i);
+				var result=[];
+				$.ajax({
+						url:PATH+'share/category?cagegoryId='+i,
+						type:"GET",
+						dataType: "json",
+						contentType: "application/json",
+						success:function(data){
+							console.log(data);
+							if(data.subCode==="1200000"){
+								result = data.bodyMessage;
+								console.log(result);
+								createhtml(result);
+							}
+						},
+					});
+			}
+		</script>
+	</body>
+</html>

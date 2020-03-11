@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=0" name="viewport" />
+	<meta name="referrer" content="never">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-control" content="no-cache">
+	<meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="资源分享">
+		<title>懒懒</title>
+		<link rel="shortcut icon" href="img/icon.png" type="img/x-icon" />
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<style>
+			.content:hover{
+				box-shadow: 2px 2px 3px #e9e9e9;
+				-webkit-box-shadow: 2px 2px 3px #e9e9e9;
+			}
+			.content{
+				box-shadow: 0px 0px 3px #f0f0f0;
+				width: 92%;
+				margin: auto;
+				height: 400px;
+				border-radius: 3px;
+			}
+			.card{
+				float: left;
+				width: 33.3%;
+				font-size: 0;
+				display: inline-block;
+				margin: 15px 0;
+				cursor: pointer;
+			}
+			.showimg_area{
+				color: #fff;
+				overflow:hidden;
+				border-radius: 3px 3px 0 0;
+				height: 66%;
+				background:#cecece;
+				position: relative;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.showimg_area #img{
+				width:100%;
+				height: 100%;
+				background-size: cover;
+				transition: all .5s ease-in-out;
+			}
+			.showimg_area .img_large{
+				transform: scale(1.1);
+			}
+			.img_shadowcalss{
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: #00000077;
+				width: 100%;
+				height: 100%;
+			}
+			.showcontent_area{
+				height: 34%;
+				font-size: 16px;
+				padding: 10px;
+				position: relative;
+			}
+			._width{
+				width: 70%;
+			}
+			@media (min-width: 768px) {
+			  	.container {
+			    	width: 750px;
+			  	}
+			}
+			@media (min-width: 992px) {
+			  	.container {
+			    	width: 970px;
+			  	}
+			}
+			@media (min-width: 1200px) {
+			  	.container {
+			   		width: 900px;
+			  	}
+			}
+			@media (max-width: 880px){
+				#main_content .card {
+				    width: 50%;
+			    }
+			}
+			@media (max-width: 580px){
+				#main_content .card {
+				    width: 100%;
+				}
+			}
+			@media screen and (max-device-width:641px) and (max-device-height:1080px){ 
+				html,body{
+					overflow-x: hidden;
+				}
+				#main_content #detail {
+				    width: 90%;
+				}
+			}
+			.title{
+				word-break: break-all;
+			}
+			.sort{
+				position: absolute;
+				bottom: 0;
+				right:0;
+				width: 100%;
+				padding: 0 15px 15px 15px;
+				text-align: right;
+			}
+			.sort .sort_name{
+				margin-right: 10px;
+				line-height: 40px;
+				height: 40px;
+				color: #fff;
+				font-size: 14px;
+			}
+			.sort .sort_img{
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+				border: 1px solid #aaaaaa66;
+				float: right;
+				display: inline-block;
+				text-align: center;
+				line-height: 40px;
+				font-weight: 800;
+				color: #987579;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.img_word{
+				font-size: 30px;
+				width: 90px;
+				height: 90px;
+			    background: #00000066;
+			    line-height: 90px;
+			    text-align: center;
+			    border-radius: 20%;
+			    transition: all .3s ease-in-out;
+			}
+			.img_wordclass{
+				width: 108px;
+				height: 108px;
+				line-height: 108px;
+				font-size: 36px;
+			}
+			.flap{
+				position: absolute;
+			    bottom: -75px;
+			    left: 0;
+			    width: 110%;
+			    min-height: 100px;
+			}
+			.flag_right{
+				background: #fff;
+				-webkit-transform: rotate(7deg) translate(-10px,0);
+    			-ms-transform: rotate(7deg) translate(-10px,0);
+    			transform: rotate(7deg) translate(-10px,0);
+    			z-index: 2;
+			}
+			.flag_left{
+				background-color: rgba(0,0,0,.5)!important;
+				z-index: 1;
+				opacity: .7;
+				-webkit-transform: rotate(-10deg) translate(10px,-10px);
+    			-ms-transform: rotate(-10deg) translate(10px,-10px);
+    			transform: rotate(-10deg) translate(10px,-10px);
+			}
+			.refresh_word{
+				display: inline-block;
+				width: 100%;
+				text-align: center;
+				font-size: 16px;
+				margin-top: 20px;
+				color: #666;
+			}
+			.line{
+				margin-bottom: 5px;
+			    width: 30%;
+			    background: #cecece;
+			    height: 1px;
+			    display: inline-block;
+			    margin-right: 5px;
+			    margin-left: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="nav_content"></div>
+		<div id="main_content">
+			<div class="container tab-content" style="padding: 45px 0;">
+				<div style="margin: auto;" class="tab-pane fade in active _width" id="detail">
+					<div id="detail_top">
+						<h3 id="shareTitle" style="font-size: 21px;">java</h3>
+						<div style="color:#666;font-size: 12px;" id="sharetimeandpv">发布于2019.08.29</div>
+					</div>
+					<div id="detail_content" style="margin-top: 10px;position: relative;">
+						<div style="font-size: 13px;padding: 0px 15px;display: inline-block;background: #6190e8;border-radius: 15px;color: #fff;height: 26px;font-weight: 600;line-height: 26px;" id="categoryChildName">java</div>
+						<div id="goshare" style="position: absolute;color: #6190e8;right: 0;top: 5px;cursor: pointer;"><span class="glyphicon glyphicon-share-alt"></span> 分享</div>
+						<span class='line' style="width: 100%;margin: 0;margin-top: 15px;"></span>
+						<div id="imglist">
+						</div>
+						<p style="margin-top: 10px;line-height: 1.5;" id="shareBrief">方式二：函数转义。自 layui 2.2.5 开始，templet 开始支持函数形式，函数返回一个参数 d，包含接口返回的所有字段和数据。如下所示：</p>
+						<p style="display: none;margin-top: 60px;line-height: 1.5;" >资源链接<span id="shareUrl" style="padding: 5px;margin-left:10px;box-shadow: 0 0 3px #cecece;border-radius: 2px;">https://www.songhaozhi.com/post/1551097547</span></p>
+						<p style="display: none;margin-top: 10px;line-height: 1.5;" >要提取码<span id="sharePwd" data-url="9" style="padding: 5px;margin-left:10px;box-shadow: 0 0 3px #cecece;border-radius: 2px;">3786</span></p>
+						<div style="text-align: center;margin-top: 100px;color: #fff;">
+<!--							<div><span class="glyphicon glyphicon-thumbs-up" style="padding: 10px;border: 1px solid #00000033;border-radius: 50%;"></span></div>
+-->							<div style="display: inline-block;width:80px;height:30px;line-height:30px;margin:0 10px;border-radius: 5px;background: #6190e8;cursor: pointer;" onclick="openHtml();">打开资源</div>
+							<div id="copy_btn" style="display: inline-block;width:80px;height:30px;line-height:30px;margin:0 10px;border-radius: 5px;background: #6190e8;cursor: pointer;" onclick="copycode();">提取码</div>
+						</div>
+						<span class='line' style="width: 100%;margin: 0;margin-top: 15px;"></span>
+						<p style="margin-top: 10px;line-height: 1.5;">本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名,转载请标明出处<br>最后编辑时间为:<span id="time"> 2019/02/25 20:25:47</span></p>
+						<!--<div style="text-align: center;"><span class="glyphicon glyphicon-thumbs-up" style="padding: 10px;color: #777;border: 1px solid #00000033;border-radius: 50%;"></span></div>
+						<div style="text-align: center;padding-top: 5px;color: #666666;font-size: 10px;"><span>5人赞</span></div>-->
+					</div>
+					<div id="detail_comment" style="margin-top: 50px;">
+						<div style="font-size: 16px;"><span id="commentsizes">0条评论</span></div>
+						<span class='line' style="width: 100%;margin: 0;margin-top: 15px;"></span>
+						<div style="margin-top: 25px;">
+							<div style="display: inline-block;float: left;">
+								<div style="display: inline-flex;align-items: center;justify-content: center;overflow: hidden;margin-right:15px;width: 40px;height: 40px;background: #666;border-radius: 50%;">
+									<img src="img/userimg2.PNG" style="width: 120%;" id="userimg" />
+								</div>
+							</div>
+							<div style="display: flow-root;"><textarea style="border-radius: 3px;width: 100%;height:80px;border: 1px solid #00000022;background: #eeeeee55;" id="addcommnetcontent"></textarea></div>
+						</div>
+						<div style="display: inline-block;font-size: 14px;float: right;margin-top: 10px;padding: 5px 15px;background: #6190e8;color: #fff;border-radius: 5px;cursor: pointer;" onclick="addcomment();">发布</div>
+					</div>
+					<br />
+					<br />
+					<div style="color: #6190e8;margin-top:20px ;"><div style="font-size: 16px;font-weight: 600;border-left: 5px solid #6190e8;padding-left: 10px;color: #6190e8;display: inline-block;">全部评论</div><!--<div style="display: inline-block;float: right;font-size: 13px;margin-left: 15px;margin-top: 5px;">按时间倒序</div><div style="display: inline-block;float: right;font-size: 13px;margin-top: 5px;">按时间正序</div>--></div>
+					<div id="commentdetail">
+						<div style="margin-top: 20px;">
+							<div style="display: inline-block;">
+								<div style="float:left;display: inline-block;margin-right:15px;width: 40px;height: 40px;background: #666;border-radius: 50%;"></div>
+								<div style="float:left;">
+									<p style="margin: 0;" id="username">小明</p>
+									<p style="margin: 0;" id="updatetime">2019</p>
+								</div>
+							</div>
+							<p style="margin-top: 10px;" id="usercontent">你好我是评论</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer_content">
+			<footer class="footer-center" style="margin-top:2rem;width: 100%;border-top: 1px solid rgba(35, 115, 191, 0.2);">
+			    <div class="container" style="padding:50px;text-align: center;font-size: 14px;">
+			    	<div><img src="img/wechatlink.PNG" style="width: 120px;margin-bottom: 15px;"></div>
+			    	<div>QQ群：129356161</div>
+			    </div>
+			</footer>
+		</div>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/jquery.cookie.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/util.js"></script>
+		<script src="https://cdn.bootcss.com/clipboard.js/1.7.1/clipboard.min.js"></script>
+		<script> 
+			var id;
+			$(function(){
+				$("#nav_content").load("nav.html");
+				id = getUrlParams("shareId");
+				var data = getShareDetail(id);
+				var comment = getcomment(id);
+				detailhtml(data);
+				commenthtml(comment);
+			})
+			addcomment = function(){
+				var content = $("#addcommnetcontent").val();
+				var json = {
+					shareId:id,
+					comment:content
+				};
+				if(StringEmpty(content)){
+					AlertBox({
+						title:"详情",
+						msg:"请输入评论内容",
+						arraybtn:['确定'],
+					});
+					return;
+				}
+				if( !$.cookie("token") ){
+					ConfirmBox({
+						title:"详情",
+						msg:"请进行登录，再进行评论",
+						arraybtn:['去登录','再看看'],
+					},function(){
+						window.location.href='login.html';
+					});
+					return;
+				}
+					$.ajax({
+						url:PATH+'comment/',
+						headers: {
+				           'token': $.cookie("token"),
+				          },
+						type:"POST",
+						dataType: "json",
+						async: false,
+						contentType: "application/json",
+						data:JSON.stringify(json),
+						success:function(data){
+							console.log(data);
+							if(data.subCode==="1200000"){
+								$("#addcommnetcontent").val("");
+								alert("评论成功");
+								window.location.reload();
+							}
+						},
+					});
+				var comment = getcomment(id);
+				commenthtml(comment);
+			}
+			openHtml = function(){
+				var url = $("#shareUrl").text();
+				console.log(url);
+				window.open(url);
+			}
+			copycode = function(){
+				var code = $("#sharePwd").text();
+				$("#sharePwd").attr("data-url",code);
+				AlertBox({
+						title:"详情",
+						msg:"提取码："+code,
+						arraybtn:['确定'],
+					});
+			}
+			var clipboard = new Clipboard('#copy_btn', {
+				        text: function() {
+				            return $('#sharePwd').attr("data-url");
+				        }
+				    });
+				    clipboard.on('success', function(e) {
+				    });
+				    clipboard.on('error', function(e) {
+				    });
+			var sharecontent = "";
+			$("#goshare").click(function(){
+				sharecontent = "标题："+title+"\n友情链接："+window.location.href+"\n欢迎使用懒懒^_^";
+				AlertBox({
+						title:"详情",
+						msg:"复制成功，快去分享吧",
+						arraybtn:['确定'],
+					});
+			});
+			var clipboardshare = new Clipboard('#goshare', {
+				        text: function() {
+				            return sharecontent;
+				        }
+				    });
+				    clipboardshare.on('success', function(e) {
+				    });
+				    clipboardshare.on('error', function(e) {
+				    });	    
+			commenthtml = function(data){
+				$("#commentsizes").text(data.length+"条评论");
+				var html = "";
+				for (var i = 0; i < data.length; i++) {
+					var border_bottom = "border-bottom: 1px solid #00000022;";
+					if(i+1>=data.length){
+						border_bottom = "";
+					}
+					html = html+"<div style=\"margin-top: 20px;"+border_bottom+"\"><div style=\"display: inline-block;\"><div style=\"float:left;margin-right:15px;width: 40px;height: 40px;background: #666;border-radius: 50%;display: inline-flex;align-items: center;justify-content: center;overflow: hidden;\"><img src=\"img/userimg2.PNG\" style=\"width: 120%;\" /></div><div style=\"float:left;\"><p style=\"margin: 0;color: #6190e8;\" id=\"username\">"+data[i].nickname+"</p><p style=\"margin: 0;\" id=\"updatetime\">"+data[i].createTime+"</p></div></div><p style=\"margin-top: 10px;margin-left:55px;\" id=\"usercontent\">"+data[i].commentContent+"</p></div>";
+				}
+				if(StringEmpty(html)){
+					html="<div style=\"text-align:center;padding:30px 0 0 0;color:#666;\">还没有用户评论，快去抢楼吧</div>";
+				}
+				$("#main_content .container #commentdetail").html(html);
+			}
+			var title;
+			detailhtml = function(data){
+				console.log(data);
+				if( $.cookie("token") ){ 
+					$("#userimg").attr("src","img/userimg3.PNG");	
+				}
+				title = data.shareTitle;
+				$("#shareTitle").text(title);
+				$("#sharetimeandpv").html("发布于："+gettimedate(data.shareUpdateTime)+"&nbsp;&nbsp;&nbsp;作者：yin"+"&nbsp;&nbsp;&nbsp;浏览数："+data.shareView+"次");
+				$("#categoryChildName").text("# "+data.categoryChildName);
+				$("#shareBrief").text(data.shareBrief);
+				$("#shareUrl").text(data.shareUrl);
+				$("#sharePwd").text(data.sharePwd);
+				if(StringEmpty(data.sharePwd)){
+					$("#copy_btn").css("display","none");
+				}
+				$("#time").text(gettimedate(data.shareUpdateTime));
+				if(data.images.length==0){
+					return;
+				}
+				console.log(data.images.length);
+				var imghtml="";
+				for (var i = 0; i < data.images.length; i++) {
+					if(StringEmpty(data.images[i].imageUrl)){
+						continue;
+					}
+					imghtml = imghtml+"<div style=\"max-width: 400px;height: 250px;overflow: hidden;margin: auto;text-align: center;margin-top: 30px;\"><img src=\""+data.images[i].imageUrl+"\"></div>";
+				}
+				$("#imglist").html(imghtml);
+			}
+			getShareDetail = function(id){
+				var resultList=[];
+				$.ajax({
+					url:PATH+'share/'+id,
+					type:"GET",
+					dataType: "json",
+					contentType: "application/json",
+					async: false,
+					success:function(data){
+						if(data.subCode==="1200000"){
+							resultList = data.bodyMessage;
+						}
+					},
+					error:function(){
+						console.log("网络异常");
+					}
+				});
+				return resultList;
+			}
+			getcomment = function(id){
+				var resultList=[];
+				$.ajax({
+					url:PATH+'comment/?shareId='+id,
+					type:"GET",
+					dataType: "json",
+					contentType: "application/json",
+					async: false,
+					success:function(data){
+						if(data.subCode==="1200000"){
+							resultList = data.bodyMessage.pageDatas;
+							console.log(resultList);
+						}
+					},
+				});
+				return resultList;
+			}
+		</script>
+	</body>
+</html>

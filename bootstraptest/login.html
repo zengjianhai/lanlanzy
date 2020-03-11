@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>懒懒</title>
+		<link rel="shortcut icon" href="img/icon.png" type="img/x-icon" />
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+	<style>
+		body{
+			margin: 0;
+			padding: 0;
+			background: #fafafa;
+		}
+		.login-main{
+			margin: auto;
+			width: 100%;
+			margin-top: 80px;
+		}
+		.login-title{
+			width: 520px;
+			font-size: 24px;
+			text-align: center;
+			margin: auto;
+		}
+		#title{
+			margin-bottom: 20px;
+			font-family: serif;
+			font-weight: 600;
+		}
+		.login-contain{
+			width: 520px;
+			margin: auto;
+			background: #fff;
+			-webkit-box-shadow:0px 2px 3px #d9d9d9; 
+			box-shadow:0px 2px 3px #d9d9d9;
+		}
+		.login-contain #contain{
+			padding: 60px 90px;
+			font-size: 12px;
+		}
+		.bottom20{
+			margin-bottom: 15px;
+		}
+		label{
+			color: #999;
+			font-size: 12px;
+			margin-bottom: 8px;
+			line-height: 1;
+			width: 100%;
+			font-weight: 500;
+		}
+		a{text-decoration:none}
+		a:hover{ text-decoration:none}
+	</style>
+	<body>
+		<div style="font-size: 22px;position: absolute;top: 20px;left: 50px;font-family: serif;font-weight: 600;">懒懒</div>
+		<div style="position: absolute;top: 10px;right: 20px;font-size: 14px;">没有账号，请<div onclick="register();" style="display:inline-block;margin-left: 8px;padding:5px 10px;background: #fafafa;box-shadow:0px 1px 3px #d9d9d9;cursor: pointer;">注册</div></div>
+		<div class="login-main">
+			<div class="login-title">
+				<div id="title">登录</div>
+			</div>
+			<div class="login-contain">
+				<div id="contain">
+					<div class="username bottom20">
+						<label>输入手机号或者邮箱</label>
+						<input class="form-control" name="username"/>
+					</div>
+					<div class="password bottom20">
+						<label>输入密码<a style="float: right;color: #6da0e3;cursor: pointer;">忘记密码</a></label>
+						<div style="display: flow-root;">
+							<input type="password" class="form-control" name="password"/>
+							<div style="margin-top: 2px;float: right;color: #999;">手机号登录使用<a style="color: #666;cursor: pointer;margin-left: 3px;" onclick="note();">短信验证码</a></div>
+						</div>
+					</div>
+					<div class="phone bottom20" style="display: none;">
+						<label>输入手机号</label>
+						<input class="form-control"/>
+					</div>
+					<div class="code bottom20" style="display: none;">
+						<label>输入验证码</label>
+						<div style="display: flow-root;">
+							<div class="input-group" style="width:100%;">
+					            <input type="text" class="form-control">
+					            <span class="input-group-addon" id="get_code" style="width: 140px;background: #6da0e3;color: #fff;cursor: pointer;" onclick="getcode();">获取短信验证码</span>
+					        </div>
+							<div style="margin-top: 2px;float: right;color: #999;"><a style="color: #666;cursor: pointer;margin-left: 3px;" onclick="pwd();">密码登录</a></div>
+						</div>
+					</div>
+					<div style="cursor: pointer;font-size: 14px;background: #000;color:#fff;text-align: center;line-height: 2.8;border-radius: 5px;margin-top: 35px;margin-bottom: 30px;" onclick="loginbtn();">立即登录</div>
+					<div style="text-align: center;"><img style="cursor: pointer;" src="img/wechat.PNG"></div>
+				</div>
+			</div>
+		</div>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/jquery.cookie.js"></script>
+		<script src="js/util.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				if( $.cookie("token") ){ 
+					$('input[name="username"]').val($.cookie("username")); 
+				} 
+			})
+			note = function(){
+				$(".username").css("display","none");
+				$(".password").css("display","none");
+				$(".phone").css("display","inherit");
+				$(".code").css("display","inherit");
+			}
+			pwd = function(){
+				$(".username").css("display","inherit");
+				$(".password").css("display","inherit");
+				$(".phone").css("display","none");
+				$(".code").css("display","none");
+			}
+			var timer;
+			getcode = function(){
+				var time = 60;
+				$("#get_code").css("background-color","#e2ecf9");
+				$("#get_code").text("重新获取（"+time+"）"); 
+				$("#get_code").css("pointer-events","none");
+				time--;
+				timer=setInterval(function () {
+			        time = TimeDown(time);
+			    }, 1000);
+			}
+			
+			function TimeDown(time) {
+ 				$("#get_code").text("重新获取（"+time+"）");
+ 				if(time==-1){
+ 					clearInterval(timer);
+ 					$("#get_code").text("获取短信验证码");
+ 					$("#get_code").css("background-color","#6da0e3");
+ 					$("#get_code").css("pointer-events","unset");
+ 				}
+ 				time--;
+			    return time;
+			}
+
+			loginbtn = function(){
+				var username = $('input[name="username"]').val();
+				var password = $('input[name="password"]').val();
+				if(username==""){
+					alert("用户名不能为空");
+					return;
+				}
+				if(password==""){
+					alert("密码不能为空");
+					return;
+				}
+				if(!reg_password.test(password)){
+					alert("密码格式不正确");
+					return;
+				}
+				var json = {
+					userName:username,
+					password:password
+				};
+				$.ajax({
+					url:PATH+'userInfo/loginUN',
+					type:"POST",
+					dataType: "json",
+					contentType: "application/json",
+					data:JSON.stringify(json),
+					success:function(data){
+						console.log(data);
+						if(data.subCode==="1200000"){
+							var token=data.bodyMessage.token;
+							var date = new Date(); 
+						    date.setTime(date.getTime() + VALIDTIME);
+						    $.cookie("username", username,{expires: date });
+							$.cookie("token", token, {path: WEBPATH,expires: date });
+							clearInterval(timer);
+							$("#get_code").text("获取短信验证码");
+			 				$("#get_code").css("background-color","#6da0e3");
+			 				$("#get_code").css("pointer-events","unset");
+			 				window.location.href='index.html';
+						}
+					},
+				});
+			}
+			register = function(){
+				window.location.href='register.html';
+			}
+		</script>
+	</body>
+</html>

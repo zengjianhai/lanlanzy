@@ -1,0 +1,208 @@
+<meta charset="UTF-8">
+	<nav class="navbar navbar-container" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target="#example-navbar-collapse" style="background: #000;position: absolute;right: 0;margin-top: 18px;">
+		            <span class="sr-only">切换导航</span>
+		            <span class="icon-bar" style="background: #fff;"/></span>
+		            <span class="icon-bar" style="background: #fff;"></span>
+		            <span class="icon-bar" style="background: #fff;"></span>
+		        </button>
+				<a class="navbar-brand" href="#" style="font-size: 20px;margin-right: 50px;"><img src="img/lanlan.png" style="height: 70px;margin-top: -15px;"></a>
+			</div>
+			<div class="collapse navbar-collapse" id="example-navbar-collapse">
+				<ul class="nav navbar-nav" id="bTab">
+					<li class="active"><a href="#b1" data-toggle="tab" onclick="gomain();"><span class="glyphicon glyphicon-globe"></span> 首页</a></li>
+					<li><a href="#b3" data-toggle="tab" onclick="searchshare();"><span class="glyphicon glyphicon-search"></span> 去搜索</a></li>
+					<li class="add"><a href="#b2" data-toggle="tab" onclick="addshare();"><span class="glyphicon glyphicon-book"></span> 资源中心</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right"> 
+					<li><a onclick="addcontent();"><span style="cursor: pointer;padding: 8px 15px;border-radius: 20px;background: #0d5bd0;color:#fff;font-weight: 600;"><span class="glyphicon glyphicon-pencil"></span> 写资源</span></a></li>
+		            <li style="position: relative;" id="userli">
+		            	<a href="#" id="username" class="dropdown-toggle" data-toggle="dropdown" onclick="login();">
+		            		<span class="glyphicon glyphicon-log-in"></span> 登录
+		            	</a>
+		            	<!--<div id="backlogin" style="position: absolute;top: 50px;right: -50px;box-shadow: 0px 1px 5px #e0e0e0;width: 100px;margin: auto;background: #fff;">
+		            		<div style="line-height: 2;color: #666;text-align: center;cursor: pointer;">退出登录</div>
+		            	</div>-->
+		            </li> 
+		        </ul>
+			</div>
+		</div>
+	</nav>
+	<div id="page2" style="width:100%"></div> 
+	<style>
+		#nav_content .navbar-container{
+				box-shadow: 0px 2px 3px #e9e9e9;
+    			height: 70px;
+			}
+			#nav_content .navbar-container .container{
+				width: 1000px;
+			}
+			#nav_content .navbar-container a{
+    			height: 68px;
+    			line-height: 40px;
+    			color: #333;
+    			font-size: 15px;
+			}
+			#nav_content .navbar-container a:hover{
+    			color: #6da0e3;
+    			background: #fff;
+			}
+			#nav_content .navbar-container a:visited{
+    			background: #fff;
+			}
+			#nav_content .navbar-container a:focus{
+    			background: #fff;
+			}
+			@media screen and (max-device-width:641px) and (max-device-height:1080px){ 
+				#nav_content .navbar-container .navbar-collapse{
+	    			background: rgba(255, 255, 255, 0.9333333333333333);
+	    			position: fixed;
+    				z-index: 999;
+    				width: 100%;
+				}
+				.navbar-nav {
+				    margin: 0px -15px;
+				}
+			}
+		#backlogin{
+			line-height: 2;
+			color: #666;
+			text-align: center;
+			cursor: pointer;
+		}
+		#backlogin:hover{
+			color: #6190e8;
+		}
+	</style>
+	<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/jquery.cookie.js"></script>
+		<script> 
+			addcontent = function(){
+				if( $.cookie("token") ){ 
+					$("#page2").load("addshare_add.html");
+				} else{
+					ConfirmBox({
+						title:"提示",
+						msg:"请先进行登录，才能继续",
+						arraybtn:['去登录','再等等'],
+					},function(){
+						window.location.href='login.html';
+					});
+				}
+			};
+			closeadd = function(){
+				$("#page2").children().remove();
+			};
+			submitshare = function(){
+				var shareTitle = $("#page2 #shareTitle").val();
+				var shareDesc = $("#page2 #shareDesc").val();
+				var shareUrl = $("#page2 #shareUrl").val();
+				var sharePwd = $("#page2 #sharePwd").val();
+				var sharesort = parseInt($("#page2 #addchildsort").val());
+				var usertitle = $("#page2 #usertitle").val();
+				var imgs=[];
+				var imgurls = $("#page2 input[name='imgurl']");
+			    for(var x=0; x<imgurls.length;x++){
+			    	imgs[x]  = {imageUrl:$(imgurls[x]).val()};
+			    }
+				var categoryUserTitles = [usertitle];
+				if(usertitle.indexOf("、") >= 0){
+					categoryUserTitles = usertitle.split("、");
+				}
+				var json = {
+					shareBrief:shareDesc,
+					shareCategoryChildId:sharesort,
+					sharePwd:sharePwd,
+					shareTitle:shareTitle,
+					shareUrl:shareUrl,
+					images:imgs,
+					categoryUserTitles: categoryUserTitles,
+					shareSource: "string",
+  					shareSourceUrl: "string",
+				};
+				console.log(json);
+				if( $.cookie("token") ){ 
+					console.log(111);
+					$.ajax({
+						url:PATH+'share/',
+						headers: {
+				           'token': $.cookie("token"),
+				          },
+						type:"POST",
+						dataType: "json",
+						contentType: "application/json",
+						data:JSON.stringify(json),
+						success:function(data){
+							console.log(data);
+							if(data.subCode==="1200000"){
+								closeadd();
+								$("#page2 #shareTitle").val("");
+								$("#page2 #shareDesc").val("");
+								$("#page2 #shareUrl").val("");
+								$("#page2 #sharePwd").val("");
+								$("#page2 #sharesort").val("");
+								window.location.href='addshare.html';
+							}
+						},
+					});
+				} else{
+					AlertBox({
+						title:"提示",
+						msg:"请登录",
+						arraybtn:['确定'],
+					});
+				}
+			}
+			$(function(){
+				if( $.cookie("token") ){ 
+					console.log($.cookie("token"));
+					var span="<span class=\"glyphicon glyphicon-user\"></span>&nbsp;";
+					$('.navbar-container #username').html(span+$.cookie("username"));
+					$("#userli").append("<div id=\"usermanage\" style=\"display:none;position: absolute;top: 50px;right: -50px;box-shadow: 0px 1px 5px #e0e0e0;width: 100px;margin: auto;background: #fff;padding:10px 0;\"><div id=\"backlogin\" onclick=\"digncenter(0);\">用户中心</div><div id=\"backlogin\" onclick=\"digncenter(1);\">退出登录</div></div>");
+				} else {
+//					$('.navbar-container .add').css("display","none");
+					$('.navbar-container .usercenter').css("display","none");
+				}
+			})
+			$("#userli").hover(function(){
+				$("#usermanage").css("display","unset");
+			},function(){
+				$("#usermanage").css("display","none");
+			});
+			login = function(){
+				if( !$.cookie("token") ){
+					window.location.href='login.html';
+				}
+			}
+			digncenter = function(i){
+				if(i==0){
+					window.location.href='user_center.html';
+				}
+				if(i==1){
+					$.cookie("token", "");
+					window.location.href='index.html';
+				}
+			}
+			gomain = function(){
+				window.location.href='index.html';
+			}
+			addshare = function(){
+				if( !$.cookie("token") ){
+					ConfirmBox({
+						title:"提示",
+						msg:"请进行登录^_^",
+						arraybtn:['去登录','再看看'],
+					},function(){
+						window.location.href='login.html';
+					});
+					return;
+				}
+				window.location.href='addshare.html';
+			}
+			searchshare = function(){
+				window.location.href='search.html';
+			}
+		</script>
